@@ -30,6 +30,7 @@ class EntriesTableViewController: UITableViewController, NSFetchedResultsControl
     // MARK: - Actions
     
     @IBAction func refresh(_ sender: Any?) {
+        print("begin refresh")
         refreshControl?.beginRefreshing()
         entryController.refreshEntriesFromServer { error in
             if let error = error {
@@ -41,7 +42,9 @@ class EntriesTableViewController: UITableViewController, NSFetchedResultsControl
                 self.tableView.reloadData()
                 self.refreshControl?.endRefreshing()
             }
+             print("finish refresh")
         }
+       
     }
     
     // MARK: - Table view data source

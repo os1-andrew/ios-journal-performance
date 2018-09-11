@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-let baseURL = URL(string: "https://journal-performance.firebaseio.com/")!
+let baseURL = URL(string: "https://journal-performance2.firebaseio.com/")!
 
 class EntryController {
         
@@ -95,7 +95,6 @@ class EntryController {
         let requestURL = baseURL.appendingPathExtension("json")
         
         URLSession.shared.dataTask(with: requestURL) { (data, _, error) in
-            
             if let error = error {
                 NSLog("Error fetching entries from server: \(error)")
                 completion(nil, error)
