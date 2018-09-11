@@ -31,15 +31,11 @@ class CoreDataImporter {
             }
             guard let entries = fetchedEntries else {return}
             
-            let indexArray = entries.compactMap {$0.identifier}
-            
+            let entryDictionary = self.createDictionary(entries: entries)
             
             for entryRep in entryRepresentations {
                 guard let identifier = entryRep.identifier else { continue }
-                let index = indexArray.index(of: identifier)
-                
-                if let index = index{
-                    let entry = entries[index]
+                if let entry = entryDictionary[identifier]{
                     if entry != entryRep{
                         self.update(entry: entry, with: entryRep)
                     }
@@ -50,6 +46,15 @@ class CoreDataImporter {
             }
             completion(nil)
         }
+    }
+    
+    private func createDictionary(entries: [Entry]) -> [String: Entry]{
+        var result: [String: Entry] = [:]
+        for entry in entries{
+            guard let identifier = entry.identifier else {continue}
+            result[identifier] = entry
+        }
+        return result
     }
     
     private func update(entry: Entry, with entryRep: EntryRepresentation) {
